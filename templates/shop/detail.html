@@ -1,14 +1,65 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}
-    {% if category %}{{ category.title }}{% else %}Products{% endif %}
+    {% if category %}
+        {{ category.title }}
+    {% else %}
+        Products
+    {% endif %}
 {% endblock %}
+
 {% block content %}
     <div class="product-detail">
-        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
-        <h1>{{ product.name }}</h1>
-        <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
-        <p class="price">${{ product.price }}</p>
-        {{ product.description|linebreaks }}
+        <div class="product-image">
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="{{ product.name }}">
+        </div>
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <h2><a href="{{ product.category.get_absolute_url }}" class="category-link">{{ product.category }}</a></h2>
+            <p class="product-price">${{ product.price }}</p>
+            <p class="product-description">{{ product.description|linebreaks }}</p>
+        </div>
     </div>
+    <style>
+        .product-detail {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .product-image img {
+            max-width: 300px;
+            height: auto;
+        }
+        .product-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .product-info h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .product-info h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        .product-info .product-price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .product-info .product-description {
+            font-size: 1em;
+            line-height: 1.4em;
+        }
+        .category-link {
+            text-decoration: none;
+            color: #2980b9;
+        }
+    </style>
 {% endblock %}

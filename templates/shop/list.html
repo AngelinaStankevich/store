@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}
-    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+    {% if category %}
+        {{ category.name }}
+    {% else %}
+        Products
+    {% endif %}
 {% endblock %}
+
 {% block content %}
     <div id="sidebar">
         <h3>Categories</h3>
@@ -19,14 +25,65 @@
     </div>
     <div id="main" class="product-list">
         <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
-        {% for product in products %}
-            <div class="item">
-                <a href="{{ product.get_absolute_url }}">
-                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
-                </a>
-                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
-                ${{ product.price }}
-            </div>
-        {% endfor %}
+        <div class="product-items">
+            {% for product in products %}
+                <div class="product-item">
+                    <a href="{{ product.get_absolute_url }}" class="product-link">
+                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="{{ product.name }}">
+                    </a>
+                    <div class="product-info">
+                        <a href="{{ product.get_absolute_url }}" class="product-link product-name">{{ product.name }}</a>
+                        <p class="product-price">${{ product.price }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
+
+<style>
+    #sidebar {
+        float: left;
+        width: 20%;
+    }
+    #main {
+        float: right;
+        width: 75%;
+    }
+    .product-list {
+        margin-top: 20px;
+    }
+    .product-items {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-gap: 20px;
+    }
+    .product-item {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+        background-color: #f9f9f9;
+    }
+    .product-item:hover {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+    .product-link {
+        text-decoration: none;
+        color: #333;
+    }
+    .product-link:hover {
+        text-decoration: underline;
+    }
+    .product-info {
+        margin-top: 10px;
+    }
+    .product-name {
+        font-weight: bold;
+    }
+    .product-price {
+        margin-top: 5px;
+        color: #27ae60;
+        font-weight: bold;
+    }
+</style>
