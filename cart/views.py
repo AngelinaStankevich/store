@@ -13,7 +13,7 @@ def cart_add(request, product_id):
     if form.is_valid():
         cd = form.cleaned_data
         cart.add(product=product,
-                 amount=cd['quantity'],
+                 amount=cd['amount'],
                  update_amount=cd['update'])
     return redirect('cart:cart_detail')
 
