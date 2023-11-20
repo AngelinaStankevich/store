@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #93c0e0;
+            background-color: #b4d9f3;
         }
         #header {
             background-color: #3b065e;
@@ -43,10 +43,18 @@
     <div id="subheader">
         <a href="/cart" class="cart">Your Cart</a>
     </div>
-    </div>
+    <div class="container-fluid">
+          {% if user.is_authenticated %}
+              <a class="navbar-brand" href="{% url 'shop:product_list' %}">{{ user.username }}</a>
+          {% else %}
+              <a class="navbar-brand" href="{% url 'login' %}">Login</a>
+              <a class="navbar-brand" href="{% url 'django_registration_register' %}">Registration</a>
+          {% endif %}
+
     <div id="content">
         {% block content %}
         {% endblock %}
+    </div>
     </div>
 </body>
 </html>

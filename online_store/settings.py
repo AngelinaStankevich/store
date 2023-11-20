@@ -35,13 +35,14 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django_registration',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop',
+    'shop.apps.ShopConfig',
+    'cart.apps.CartConfig',
     'ckeditor',
-    'cart',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,4 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+LOGIN_REDIRECT_URL = '/'
