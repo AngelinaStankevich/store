@@ -12,16 +12,16 @@
 {% block content %}
     <div id="sidebar">
         <h3>Categories</h3>
-        <ul>
-            <li {% if not category %}class="selected"{% endif %}>
-                <a href="{% url "shop:product_list" %}">All</a>
-            </li>
+        <div class="category-buttons">
+            <button class="category-button {% if not category %}selected{% endif %}">
+                <a href="{% url "shop:product_list" %}">All products</a>
+            </button>
             {% for c in categories %}
-                <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                <button class="category-button {% if category.slug == c.slug %}selected{% endif %}">
                     <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-                </li>
+                </button>
             {% endfor %}
-        </ul>
+        </div>
     </div>
     <div id="main" class="product-list">
         <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
@@ -40,7 +40,6 @@
         </div>
     </div>
 {% endblock %}
-
 <style>
     #sidebar {
         float: left;
@@ -59,11 +58,15 @@
         grid-gap: 20px;
     }
     .product-item {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px;
-        text-align: center;
-        background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+    }
+    .product-item img {
+        width: 50px; /* Устанавливаем ширину изображения */
+        height: 50px; /* Устанавливаем высоту изображения */
     }
     .product-item:hover {
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -86,4 +89,30 @@
         color: #27ae60;
         font-weight: bold;
     }
+    .category-buttons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .category-button {
+        border: none;
+        border-radius: 8px;
+        padding: 12px 20px;
+        margin-bottom: 10px;
+        text-align: center;
+        background-color: #3498db;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        font-size: 16px;
+    }
+
+    .category-button.selected {
+        background-color: #2980b9;
+    }
+
+    .category-button:hover {
+        background-color: #2c3e50;
+    }
+
 </style>

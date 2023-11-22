@@ -41,9 +41,9 @@
             </tr>
         </tbody>
     </table>
-    <p class="text-right">
-        <a href="{% url "cart:cart_detail" %}" class="button light">Place an order</a>
-    </p>
+    <a href="{% url "orders:order_create" %}" class="button">
+        Place an order
+    </a>
     <p class="text-right">
         <a href="{% url "shop:product_list" %}" class="button light">Return to the catalog</a>
     </p>
